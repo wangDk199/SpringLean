@@ -1,26 +1,25 @@
-package com.soft851.spring;
+package com.soft1851.spring.entity;
 
-import com.soft851.spring.Phone;
+import java.util.List;
 
 /**
- * @author xunmi
+ * @author ke
  * @ClassName Student
- * @Description TODO
- * @Date 2020/3/12
+ * @Description TOOD
+ * @Date 2020/3/17
  * @Version 1.0
  **/
 public class Student {
     private String name;
-    private Phone phone;
+    private List<Phone> phoneList;
 
-    public Student() {
-    }
-
-    public Student(String name, Phone phone) {
+    public Student(String name, List<Phone> phoneList) {
         this.name = name;
-        this.phone = phone;
+        this.phoneList = phoneList;
     }
+    public Student() {
 
+    }
     public String getName() {
         return name;
     }
@@ -29,19 +28,19 @@ public class Student {
         this.name = name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public List<Phone> getPhoneList() {
+        return phoneList;
     }
 
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    public void setPhoneList(List<Phone> phoneList) {
+        this.phoneList = phoneList;
     }
 
     @Override
     public String toString() {
         return "Student{" +
                 "name='" + name + '\'' +
-                ", phone=" + phone +
+                ", phoneList=" + phoneList +
                 '}';
     }
 }

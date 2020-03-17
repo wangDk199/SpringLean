@@ -1,23 +1,23 @@
-package com.soft851.spring;
+package com.soft1851.spring.entity;
 
 /**
  * @author ke
  * @ClassName Phone
- * @Description TODO
- * @Date 2020/3/12
+ * @Description TOOD
+ * @Date 2020/3/17
  * @Version 1.0
  **/
 public class Phone {
     private String brand;
-    private Double price;
+    private Integer price;
 
-    public Phone() {}
-
-    public Phone(String brand, Double price) {
+    public Phone(String brand, Integer price) {
         this.brand = brand;
         this.price = price;
     }
+    public Phone() {
 
+    }
     public String getBrand() {
         return brand;
     }
@@ -26,11 +26,11 @@ public class Phone {
         this.brand = brand;
     }
 
-    public Double getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
