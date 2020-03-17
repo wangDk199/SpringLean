@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="phone" class="com.soft1851.spring.entity.">
+        <constructor-arg name="brand" value="iPhone11" />
+        <constructor-arg name="price" value="8888.8" />
+    </bean>
+
+
+
+
+    <bean id="student" class="com.soft851.spring.Student">
+        <constructor-arg name="name" value="寻寻觅" />
+        <constructor-arg name="phone" ref="phone1" />
+    </bean>
+</beans>
