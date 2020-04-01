@@ -1,5 +1,6 @@
 package com.soft1851.spring.dao;
 
+import com.soft1851.spring.config.JdbcConfig;
 import com.soft1851.spring.dao.impl.ForumDaoImpl;
 import com.soft1851.spring.entity.Forum;
 import org.junit.Test;
@@ -13,7 +14,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/applicationContext.xml"})
+//@ContextConfiguration(locations = {"/applicationContext.xml"})
+@ContextConfiguration(classes = {JdbcConfig.class})
 public class ForumDaoTest {
 
     @Autowired
@@ -38,13 +40,13 @@ public class ForumDaoTest {
 
     @Test
     public void delete() {
-        int n = forumDao.delete(1);
+        int n = forumDao.delete(4);
         assertEquals(1,n);
     }
 
     @Test
     public void update() {
-        Forum forum = forumDao.get(2);
+        Forum forum = forumDao.get(6);
         forum.setForumName("修改论坛测试的新名称");
         int n = forumDao.update(forum);
         assertEquals(1,n);
@@ -52,13 +54,13 @@ public class ForumDaoTest {
 
     @Test
     public void get() {
-        Forum forum = forumDao.get(2);
+        Forum forum = forumDao.get(6);
         assertNotNull(forum);
     }
 
     @Test
     public void selectAll() {
         List<Forum> forums = forumDao.selectAll();
-        assertEquals(3,forums.size());
+        assertEquals(14,forums.size());
     }
 }

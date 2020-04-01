@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import java.util.List;
  * @Date 2020/3/17
  * @Version 1.0
  **/
+@Repository
 public class PostDaoImpl implements PostDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -64,16 +66,20 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public Post get(int postId) {
+    public Post getId(int postId) {
         String sql = "SELECT * FROM t_post WHERE post_id = ?";
         Object[] args = {postId};
         return jdbcTemplate.queryForObject(sql, args, new BeanPropertyRowMapper<>(Post.class));
     }
 
     @Override
-    public List<Post> selectAll() {
-        String sql = "SELECT * FROM t_post";
-
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Post.class));
+    public Post getName(String postName) {
+        String sql = "SELECT * FROM t_post WHERE " +
+                "post_name LIKE CONCAT('%', ?, '%') "
+                 ;
+        Object[] args = {postName};
+        return jdbcTemplate.queryForObject(sql, args, new BeanPropertyRowMapper<>(Post.class));
     }
+
+
 }

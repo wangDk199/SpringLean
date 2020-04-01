@@ -33,10 +33,16 @@ public interface PostDao {
     int update(Post post);
 
     /**
-     * 根据id查找
+     * 根据id查询
+     */
+
+    Post getId(int postId);
+
+    /**
+     * 根据关键词查找
      *
      */
-    Post get(int postId);
+    Post getName(String postName);
 
-    List<Post> selectAll();
+
 }

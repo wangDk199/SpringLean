@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Title</title>
+    <style class="text/css">
+        .header {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            margin: 30px 0 0 40%;
+        }
+        .body {
+            margin: 30px 0 0 20%;
+            width: 70%;
+            border: #e9e9e9 solid 1px;
+        }
+        .media {
+            width: 90%;
+            margin: 10px 0 0 10px;
+            border-bottom: #f4f4f4 solid 1px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <img src="http://article.fd.zol-img.com.cn/t_s640x2000/g5/M00/0E/03/ChMkJldqCeKIfG9PAABeVQGddwAAAS2HgEYkn0AAF5t338.jpg" style="width: 180px; height: 100px"/>
+        <div style="margin-top: 10px">
+            <input type="text" style="width: 400px; margin-left: -100px">
+            <span style="background-color: #317ef3; height: 50px">百度一下</span>
+        </div>
+    </div>
+    <div class="body">
+        <div class="media" th:each="foucs:${foucsList}">
+            <img th:src="${foucs.imgUrl}" class="mr-3" alt="..." style="width: 130px; height: 80px">
+            <div class="media-body">
+                <h5 th:text="${foucs.title}" style="color: #666666"></h5>
+                <span class="mt-0" th:text="${foucs.nickName}" style="font-size: 10px; color: #c3c3c3; margin-left: -5px"></span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

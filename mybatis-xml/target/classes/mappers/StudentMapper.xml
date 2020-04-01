@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soft1851.spring.mybatis.mapper.StudentMapper">
+
+
+
+    <insert id="insert" parameterType="Student" useGeneratedKeys="true"
+            keyProperty="studentId">
+        INSERT INTO t_student
+        VALUES (null, #{clazzId}, #{studentName}, #{hometown}, #{birthday})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE
+        FROM t_student
+        WHERE student_id = #{studentId}
+    </delete>
+
+    <update id="update" parameterType="Student">
+        UPDATE t_student
+        SET student_name = #{studentName},
+            hometown     = #{hometown},
+            birthday     = #{birthday}
+        WHERE student_id = #{studentId}
+    </update>
+
+    <select id="getStudentById" parameterType="int" resultType="Student">
+        SELECT *
+        FROM t_student
+        WHERE student_id = #{studentId}
+    </select>
+
+    <resultMap type="Student" id="studentMap">
+        <id column="student_id" property="studentId"/>
+        <result column="student_name" property="studentName"/>
+        <result column="hometown" property="hometown"/>
+        <result column="birthday" property="birthday"/>
+        <association property="clazz" javaType="Clazz">
+            <id column="clazz_id" property="clazzId"/>
+            <result column="clazz_name" property="clazzName"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAll" resultMap="studentMap">
+        SELECT s.student_id, s.student_name, s.hometown, s.birthday, c.clazz_name
+        FROM t_student s
+                 RIGHT JOIN t_clazz c
+                            ON s.clazz_id = c.clazz_id
+        ORDER BY s.birthday DESC
+    </select>
+
+    <insert id="batchInsert" parameterType="Student" useGeneratedKeys="true"
+            keyProperty="studentId">
+        INSERT INTO t_student
+        VALUES
+        <foreach collection="students" item="student" index="index" separator=",">
+            (#{student.studentId},#{student.clazzId}, #{student.studentName}, #{student.hometown}, #{student.birthday})
+        </foreach>
+    </insert>
+
+    <delete id="batchDelete" parameterType="int">
+        DELETE FROM t_student
+        WHERE student_id IN
+        <foreach collection='idList' item='item' index='index'
+                 open='(' separator=',' close=')'>
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="students" item="student" index="index" open="" close="" separator=";">
+            UPDATE t_student
+            <set>
+                student_name = #{student.studentName}
+            </set>
+            WHERE student_id = ${student.studentId}
+        </foreach>
+    </update>
+
+
+    <select id="selectByDynamicSql" parameterType="Student"
+            resultType="Student">
+        SELECT * FROM t_student
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="studentId != null">
+                student_id = #{studentId}
+            </if>
+            <if test="studentName != null and studentName != ''">
+                AND student_name = #{studentName}
+            </if>
+            <if test="hometown != null and hometown != ''">
+                AND hometown LIKE concat ('%',#{hometown},'%')
+            </if>
+        </trim>
+    </select>
+
+    <!--    <select id="selectByDynamicSql" parameterType="Student" resultType="Student">-->
+    <!--        SELECT * FROM t_student-->
+    <!--        WHERE 1 = 1-->
+    <!--        <choose>-->
+    <!--            <when test="studentId != null">-->
+    <!--                AND student_id = #{studentId}-->
+    <!--            </when>-->
+    <!--            <when test="studentName != null and studentName != ''">-->
+    <!--                AND student_name LIKE concat ('%',#{studentName},'%')-->
+    <!--            </when>-->
+    <!--        </choose>-->
+    <!--    </select>-->
+
+    <select id="selectByPage" resultType="Student">
+        SELECT *
+        FROM t_student
+        LIMIT #{offset},#{pageSize}
+    </select>
+</mapper>

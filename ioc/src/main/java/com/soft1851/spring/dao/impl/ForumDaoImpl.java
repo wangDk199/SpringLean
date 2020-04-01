@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -23,6 +24,19 @@ import java.util.List;
 public class ForumDaoImpl implements ForumDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+//    public ForumDaoImpl(JdbcTemplate jdbcTemplate) {
+//        this.jdbcTemplate = jdbcTemplate;
+//    }
+
+    public ForumDaoImpl(JdbcTemplate jdbcTemplate) {
+        this.setJdbcTemplate(jdbcTemplate);
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     @Override
     public int insert(Forum forum) {
         String sql = "INSERT INTO t_forum VALUE(NULL,?)";

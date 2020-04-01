@@ -1,16 +1,21 @@
 package com.soft1851.spring.dao;
 
 import com.soft1851.spring.dao.impl.PostDaoImpl;
-import com.soft1851.spring.entity.Forum;
 import com.soft1851.spring.entity.Post;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"/applicationContext.xml"})
 public class PostDaoTest {
     @Autowired
     private PostDao postDao;
@@ -34,27 +39,27 @@ public class PostDaoTest {
 
     @Test
     public void delete() {
-        int n = postDao.delete(1);
+        int n = postDao.delete(2);
         assertEquals(1,n);
     }
 
     @Test
     public void update() {
-        Post forum = postDao.get(2);
+        Post forum = postDao.getId(3);
         forum.setPostName("修改论坛测试的新名称");
         int n = postDao.update(forum);
         assertEquals(1,n);
     }
 
     @Test
-    public void get() {
-        Post post = postDao.get(2);
+    public void getId() {
+        Post post = postDao.getId(5);
+        assertNotNull(post);
+    }
+    @Test
+    public void getName() {
+        Post post = postDao.getName("修");
         assertNotNull(post);
     }
 
-    @Test
-    public void selectAll() {
-        List<Post> posts = postDao.selectAll();
-        assertEquals(3,posts.size());
-    }
 }
